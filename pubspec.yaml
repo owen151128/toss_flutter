@@ -22,6 +22,7 @@ dependencies:
   logger: ^2.6.2
   json_annotation: ^4.9.0
   flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -35,3 +36,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/images/toss_icon.png"
+
+  android_12:
+    color: "#ffffff"
+    image: "assets/images/toss_icon.png"
+    icon_background_color: "#ffffff"
