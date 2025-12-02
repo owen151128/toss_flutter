@@ -15,15 +15,7 @@ class BaseView<T extends BaseViewModel> extends StatelessWidget {
       create: (_) => viewModel,
       child: Builder(
         builder: (context) {
-          final viewModel = context.watch<T>();
-          return viewModel.state.isLoading
-              ? Center(
-                  child: Transform.scale(
-                    scale: 1.5,
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : builder(context, viewModel);
+          return builder(context, viewModel);
         },
       ),
     );

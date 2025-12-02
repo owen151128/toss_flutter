@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:toss_flutter/src/view/test_view.dart';
-import 'package:toss_flutter/src/view/test_view_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toss_flutter/my_bloc_observer.dart';
+import 'package:toss_flutter/src/routing/app_routes.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp(const TossApp());
 }
 
@@ -11,16 +13,13 @@ class TossApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Color tossMainColor = Color.fromARGB(100, 0, 64, 255);
+
+    return MaterialApp.router(
+      routerConfig: AppRoutes.router,
       title: 'Toss',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: Scaffold(
-        body: TestView(
-          viewModel: TestViewModel(),
-          builder: (context, viewModel) => Center(child: Text("Hello Test!")),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: tossMainColor),
       ),
     );
   }
