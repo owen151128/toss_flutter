@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:toss_flutter/src/base_view.dart';
+import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
 import 'package:toss_flutter/src/view/splash/splash_view_model.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,14 +17,16 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BaseView(
-    viewModel: SplashViewModel(),
+    viewModel: SplashViewModel(context.read<VideoPlayerControllerService>()),
     builder: (context, viewModel) {
       viewModel.add(
         TossInitializeEvent(videoPlayerController: videoPlayerController),
       );
       return BlocListener<SplashViewModel, SplashState>(
         listener: (context, state) {
-          context.go("/onboard");
+          if (state is SplashInitializedState) {
+            context.go("/onboard");
+          }
         },
         child: Scaffold(
           backgroundColor: Colors.white,

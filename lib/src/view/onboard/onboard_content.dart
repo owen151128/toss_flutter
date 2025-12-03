@@ -2,14 +2,12 @@ part of 'onboard_view.dart';
 
 class OnBoardContent {
   const OnBoardContent({
-    this.videoAssetPath,
     this.animationAssetName,
     required this.titles,
     required this.richTitles,
     required this.hints,
   });
 
-  final String? videoAssetPath;
   final String? animationAssetName;
   final List<String> titles;
   final List<Text> richTitles;
@@ -24,17 +22,14 @@ Widget createContent({
 }) {
   late final Widget mainContent;
   late final List<Widget> titles;
-  if (onBoardContent.videoAssetPath != null) {
-    final VideoPlayerController videoPlayerController =
-        VideoPlayerController.asset(
-          onBoardContent.videoAssetPath!,
-          viewType: VideoViewType.platformView,
-        );
-    mainContent = VideoPlayer(videoPlayerController);
-    viewModel.add(OnBoardPlayVideoEvent(videoPlayerController));
+  if (onBoardContent.animationAssetName == null) {
+    mainContent = VideoPlayer(
+      context.read<VideoPlayerControllerService>().state,
+    );
+    viewModel.add(OnBoardPlayVideoEvent());
   } else {
     mainContent = Lottie.asset(
-      "assets/lotties/${onBoardContent.animationAssetName ?? "error_default"}.json",
+      "assets/lotties/${onBoardContent.animationAssetName!}.json",
     );
   }
   if (onBoardContent.richTitles.isEmpty) {

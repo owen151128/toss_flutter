@@ -1,29 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:toss_flutter/src/base_view_model.dart';
-import 'package:video_player/video_player.dart';
+import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
 
 part 'onboard_view_event.dart';
 part 'onboard_view_state.dart';
 
 class OnBoardViewModel extends BaseViewModel<OnBoardEvent, OnBoardState> {
-  OnBoardViewModel() : super(OnBoardStopedVideoState()) {
-    on<OnBoardPlayVideoEvent>(onBoardPlayingVideoEvent);
+  OnBoardViewModel(this.videoService) : super(OnBoardStopedVideoState()) {
+    on<OnBoardPlayVideoEvent>(onBoardPlayVideoEvent);
     on<OnBoardStopVideoEvent>(onBoardStopedVideoEvent);
   }
 
-  VideoPlayerController? videoPlayerController;
+  final VideoPlayerControllerService videoService;
 
-  Future<void> onBoardPlayingVideoEvent(
+  Future<void> onBoardPlayVideoEvent(
     OnBoardPlayVideoEvent event,
     Emitter<OnBoardState> emit,
   ) async {
-    videoPlayerController = event.videoPlayerController;
-    if (videoPlayerController == null) {
-      return;
-    }
-    await videoPlayerController!.initialize();
-    videoPlayerController!.setLooping(true);
-    videoPlayerController!.play();
+    videoService.state.setLooping(true);
+    videoService.state.play();
     emit(OnBoardPlayingVideoState());
   }
 
@@ -31,10 +26,7 @@ class OnBoardViewModel extends BaseViewModel<OnBoardEvent, OnBoardState> {
     OnBoardStopVideoEvent event,
     Emitter<OnBoardState> emit,
   ) async {
-    if (videoPlayerController == null) {
-      return;
-    }
-    videoPlayerController!.pause();
-    videoPlayerController!.dispose();
+    videoService.state.pause();
+    videoService.state.dispose();
   }
 }

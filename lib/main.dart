@@ -4,9 +4,16 @@ import 'package:toss_flutter/my_bloc_observer.dart';
 import 'package:toss_flutter/src/routing/app_routes.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
 
+import 'src/service/onboard/video_player_controller_service.dart';
+
 void main() {
   Bloc.observer = MyBlocObserver();
-  runApp(const TossApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => VideoPlayerControllerService())],
+      child: const TossApp(),
+    ),
+  );
 }
 
 class TossApp extends StatelessWidget {

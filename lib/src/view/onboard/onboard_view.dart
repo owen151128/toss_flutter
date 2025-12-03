@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toss_flutter/src/base_view.dart';
+import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
 import 'package:toss_flutter/src/view/onboard/onboard_view_model.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
 import 'package:video_player/video_player.dart';
@@ -14,7 +15,6 @@ class OnBoardView extends StatelessWidget {
   final PageController pageController = PageController();
   final List<OnBoardContent> contents = [
     OnBoardContent(
-      videoAssetPath: "assets/videos/toss_splash.mp4",
       titles: ["금융의 모든 것", "토스에서 간편하게"],
       richTitles: [],
       hints: [],
@@ -79,7 +79,7 @@ class OnBoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BaseView(
-    viewModel: OnBoardViewModel(),
+    viewModel: OnBoardViewModel(context.read<VideoPlayerControllerService>()),
     builder: (context, viewModel) {
       return BlocListener<OnBoardViewModel, OnBoardState>(
         listener: (context, state) {},
