@@ -81,25 +81,22 @@ class OnBoardView extends StatelessWidget {
   Widget build(BuildContext context) => BaseView(
     viewModel: OnBoardViewModel(context.read<VideoPlayerControllerService>()),
     builder: (context, viewModel) {
-      return BlocListener<OnBoardViewModel, OnBoardState>(
-        listener: (context, state) {},
-        child: PageView.builder(
-          controller: pageController,
-          itemCount: contents.length,
-          itemBuilder: (context, index) {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: SafeArea(
-                child: createContent(
-                  context: context,
-                  viewModel: viewModel,
-                  onBoardContent: contents[index],
-                  onPressed: null,
-                ),
+      return PageView.builder(
+        controller: pageController,
+        itemCount: contents.length,
+        itemBuilder: (context, index) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: SafeArea(
+              child: createContent(
+                context: context,
+                viewModel: viewModel,
+                onBoardContent: contents[index],
+                onPressed: null,
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       );
     },
   );
