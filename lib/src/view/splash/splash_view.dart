@@ -23,7 +23,7 @@ class SplashView extends StatelessWidget {
       );
       return BlocListener<SplashViewModel, SplashState>(
         listener: (context, state) {
-          context.go("/test");
+          context.go("/onboard");
         },
         child: Scaffold(
           backgroundColor: Colors.white,

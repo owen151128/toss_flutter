@@ -18,7 +18,7 @@ class SplashViewModel extends BaseViewModel<SplashEvent, SplashState> {
     event.videoPlayerController.play();
     await Future.delayed(
       Duration(
-        seconds: event.videoPlayerController.value.duration.inSeconds + 1,
+        seconds: event.videoPlayerController.value.duration.inSeconds,
       ),
     );
     emit(SplashInitializedState());
