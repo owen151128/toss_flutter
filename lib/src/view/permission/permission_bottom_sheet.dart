@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toss_flutter/src/service/permissions/permissions_service.dart';
 import 'package:toss_flutter/src/view/common/toss_buttons.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
@@ -78,6 +79,7 @@ class PermissionBottomSheet {
               ),
               Spacer(),
               TossButtons.createButton(context, "계속하기", () async {
+                GoRouter.of(context).pop();
                 context.read<PermissionsService>().requestPermission();
               }),
               Spacer(),
