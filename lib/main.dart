@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toss_flutter/my_bloc_observer.dart';
 import 'package:toss_flutter/src/routing/app_routes.dart';
+import 'package:toss_flutter/src/service/permissions/permissions_service.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
 
 import 'src/service/onboard/video_player_controller_service.dart';
@@ -10,7 +11,10 @@ void main() {
   Bloc.observer = MyBlocObserver();
   runApp(
     MultiBlocProvider(
-      providers: [BlocProvider(create: (_) => VideoPlayerControllerService())],
+      providers: [
+        BlocProvider(create: (_) => PermissionsService()),
+        BlocProvider(create: (_) => VideoPlayerControllerService()),
+      ],
       child: const TossApp(),
     ),
   );

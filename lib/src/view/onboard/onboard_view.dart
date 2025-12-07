@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toss_flutter/src/base_view.dart';
 import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
+import 'package:toss_flutter/src/view/common/toss_buttons.dart';
 import 'package:toss_flutter/src/view/onboard/onboard_view_model.dart';
+import 'package:toss_flutter/src/view/permission/permission_bottom_sheet.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
 import 'package:video_player/video_player.dart';
 
@@ -92,7 +94,7 @@ class OnBoardView extends StatelessWidget {
                 context: context,
                 viewModel: viewModel,
                 onBoardContent: contents[index],
-                onPressed: null,
+                onPressed: () => PermissionBottomSheet.show(context),
               ),
             ),
           );
