@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logger/logger.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toss_flutter/src/base_view.dart';
 import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
@@ -94,10 +94,14 @@ class OnBoardView extends StatelessWidget {
             case OnBoardOverlayBottomSheetState():
               PermissionBottomSheet.show(context, viewModel);
             case OnBoardDisposedState():
+              final GoRouter router = GoRouter.of(context);
+              final VideoPlayerControllerService videoService = context
+                  .read<VideoPlayerControllerService>();
               if (!state.isRequiredPermissionsGranted) {
                 await context.read<PermissionsService>().requestPermission();
               }
-              context.read<VideoPlayerControllerService>().dispose();
+              videoService.dispose();
+              router.go("/identify_verification");
           }
         },
         child: PageView.builder(

@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toss_flutter/src/base_view_model.dart';
 import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
 import 'package:toss_flutter/src/service/permissions/permissions_service.dart';

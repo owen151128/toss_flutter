@@ -64,7 +64,10 @@ Widget createContent({
           ),
         ),
         Spacer(),
-        TossButtons.createButton(context, "다음", onPressed),
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: TossButtons.createButton(context, "다음", onPressed),
+        ),
       ],
     ),
   );

@@ -34,7 +34,7 @@ class PermissionBottomSheet {
                 child: Text(
                   "ARS 인증번호를 받거나, 더치페이를 요청할 때 알림을 받아요.",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Palette.tossGrey,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -48,7 +48,7 @@ class PermissionBottomSheet {
                 child: Text(
                   "주소록에 저장된 사람들에게 무료로 송금하고, 프로필 사진을 불러와요. 다양한 혜택을 공유하거나 초대 메시지를 보낼 수 있어요.\n",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Palette.tossGrey,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -66,21 +66,28 @@ class PermissionBottomSheet {
                       Text(
                         "개인정보 처리 방침",
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Palette.tossGrey,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Icon(Icons.chevron_right, color: Colors.grey, size: 14),
+                      Icon(
+                        Icons.chevron_right,
+                        color: Palette.tossGrey,
+                        size: 14,
+                      ),
                     ],
                   ),
                 ),
               ),
               Spacer(),
-              TossButtons.createButton(context, "계속하기", () {
-                viewModel.add(OnBoardDisposeEvent());
-                GoRouter.of(context).pop();
-              }),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: TossButtons.createButton(context, "계속하기", () {
+                  viewModel.add(OnBoardDisposeEvent());
+                  GoRouter.of(context).pop();
+                }),
+              ),
               Spacer(),
             ],
           ),
@@ -121,7 +128,7 @@ class PermissionBottomSheet {
                 Text(
                   title,
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Palette.tossGrey,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
