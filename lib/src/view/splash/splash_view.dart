@@ -6,14 +6,25 @@ import 'package:toss_flutter/src/service/onboard/video_player_controller_service
 import 'package:toss_flutter/src/view/splash/splash_view_model.dart';
 import 'package:video_player/video_player.dart';
 
-class SplashView extends StatelessWidget {
+class SplashView extends StatefulWidget {
   SplashView({super.key});
 
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
   final VideoPlayerController videoPlayerController =
       VideoPlayerController.asset(
         "assets/videos/toss_splash.mp4",
         viewType: VideoViewType.platformView,
       );
+
+  @override
+  void dispose() async {
+    super.dispose();
+    await videoPlayerController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) => BaseView(

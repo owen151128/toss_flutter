@@ -45,7 +45,7 @@ class OnBoardViewModel extends BaseViewModel<OnBoardEvent, OnBoardState> {
     // 필요 권한이 모두 흭득되어 있으면 dispose, 아닌 경우 bottom sheet 보여주기
     // 이후 bottom sheet 가 끝나면 onBoardDisposeEvent 가 다시 발생
     if (await permissionsService.isRequiredPermissionsGranted()) {
-      emit(OnBoardDisposedState(true));
+      add(OnBoardDisposeEvent());
     } else {
       emit(OnBoardOverlayBottomSheetState());
     }
@@ -58,11 +58,6 @@ class OnBoardViewModel extends BaseViewModel<OnBoardEvent, OnBoardState> {
     // 퍼미션 요청이 필요한지 확인해서 OnBoardDisposedState 변경
     // true : 불필요, false : 필요
     // false 인 경우에만 권한 요청 시도
-    if (await permissionsService.isRequiredPermissionsGranted()) {
-      emit(OnBoardDisposedState(true));
-      videoService.dispose();
-    } else {
-      emit(OnBoardDisposedState(false));
-    }
+      emit(OnBoardDisposedState(await permissionsService.isRequiredPermissionsGranted()));
   }
 }

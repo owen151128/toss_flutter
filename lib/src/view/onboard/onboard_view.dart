@@ -95,8 +95,9 @@ class OnBoardView extends StatelessWidget {
               PermissionBottomSheet.show(context, viewModel);
             case OnBoardDisposedState():
               if (!state.isRequiredPermissionsGranted) {
-                context.read<PermissionsService>().requestPermission();
+                await context.read<PermissionsService>().requestPermission();
               }
+              context.read<VideoPlayerControllerService>().dispose();
           }
         },
         child: PageView.builder(
