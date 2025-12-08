@@ -4,6 +4,8 @@ import 'package:video_player/video_player.dart';
 class VideoPlayerControllerService extends Cubit<VideoPlayerController> {
   VideoPlayerControllerService() : super(VideoPlayerController.asset(""));
 
+  bool isInitialized = false;
+
   Future<void> initialize(String assetPath) async {
     final VideoPlayerController videoPlayerController =
         VideoPlayerController.asset(
@@ -11,6 +13,15 @@ class VideoPlayerControllerService extends Cubit<VideoPlayerController> {
           viewType: VideoViewType.platformView,
         );
     await videoPlayerController.initialize();
+    isInitialized = true;
     emit(videoPlayerController);
+  }
+
+  void dispose() {
+    if (isInitialized) {
+      state.pause();
+      state.dispose();
+      isInitialized = false;
+    }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
 import 'package:toss_flutter/src/base_view.dart';
 import 'package:toss_flutter/src/service/onboard/video_player_controller_service.dart';
+import 'package:toss_flutter/src/service/permissions/permissions_service.dart';
 import 'package:toss_flutter/src/view/common/toss_buttons.dart';
 import 'package:toss_flutter/src/view/onboard/onboard_view_model.dart';
 import 'package:toss_flutter/src/view/permission/permission_bottom_sheet.dart';
@@ -81,24 +83,40 @@ class OnBoardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BaseView(
-    viewModel: OnBoardViewModel(context.read<VideoPlayerControllerService>()),
+    viewModel: OnBoardViewModel(
+      context.read<VideoPlayerControllerService>(),
+      context.read<PermissionsService>(),
+    ),
     builder: (context, viewModel) {
-      return PageView.builder(
-        controller: pageController,
-        itemCount: contents.length,
-        itemBuilder: (context, index) {
-          return Scaffold(
-            backgroundColor: Colors.white,
-            body: SafeArea(
-              child: createContent(
-                context: context,
-                viewModel: viewModel,
-                onBoardContent: contents[index],
-                onPressed: () => PermissionBottomSheet.show(context),
-              ),
-            ),
-          );
+      return BlocListener<OnBoardViewModel, OnBoardState>(
+        listener: (context, state) async {
+          switch (state) {
+            case OnBoardOverlayBottomSheetState():
+              PermissionBottomSheet.show(context, viewModel);
+            case OnBoardDisposedState():
+              if (!state.isRequiredPermissionsGranted) {
+                context.read<PermissionsService>().requestPermission();
+              }
+          }
         },
+        child: PageView.builder(
+          controller: pageController,
+          itemCount: contents.length,
+          itemBuilder: (context, index) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                child: createContent(
+                  context: context,
+                  viewModel: viewModel,
+                  onBoardContent: contents[index],
+                  onPressed: () =>
+                      viewModel.add(OnBoardShowPermissionBottomSheetEvent()),
+                ),
+              ),
+            );
+          },
+        ),
       );
     },
   );

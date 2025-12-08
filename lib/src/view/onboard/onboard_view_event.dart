@@ -5,3 +5,7 @@ abstract class OnBoardEvent {}
 class OnBoardPlayVideoEvent extends OnBoardEvent {}
 
 class OnBoardStopVideoEvent extends OnBoardEvent {}
+
+class OnBoardShowPermissionBottomSheetEvent extends OnBoardEvent {}
+
+class OnBoardDisposeEvent extends OnBoardEvent {}

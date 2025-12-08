@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:toss_flutter/src/service/permissions/permissions_service.dart';
 import 'package:toss_flutter/src/view/common/toss_buttons.dart';
+import 'package:toss_flutter/src/view/onboard/onboard_view_model.dart';
 import 'package:toss_flutter/theme/res/palette.dart';
 
 class PermissionBottomSheet {
   const PermissionBottomSheet._();
 
-  static void show(BuildContext context) {
-    showModalBottomSheet(
+  static void show(BuildContext context, OnBoardViewModel viewModel) async {
+    await showModalBottomSheet(
       context: context,
       builder: (context) {
         return SizedBox(
@@ -78,9 +77,9 @@ class PermissionBottomSheet {
                 ),
               ),
               Spacer(),
-              TossButtons.createButton(context, "계속하기", () async {
+              TossButtons.createButton(context, "계속하기", () {
+                viewModel.add(OnBoardDisposeEvent());
                 GoRouter.of(context).pop();
-                context.read<PermissionsService>().requestPermission();
               }),
               Spacer(),
             ],

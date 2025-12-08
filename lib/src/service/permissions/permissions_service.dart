@@ -11,6 +11,12 @@ class PermissionsService extends Cubit<Map<Permission, bool>> {
     Permission.contacts,
   ];
 
+  Future<bool> isRequiredPermissionsGranted() async {
+    await _updateCurrentRequiredPermissionsGranted();
+
+    return state.values.where((e) => e == false).isEmpty;
+  }
+
   Future<void> requestPermission() async {
     await _updateCurrentRequiredPermissionsGranted();
     List<Permission> requestPermissionsList = state.entries
